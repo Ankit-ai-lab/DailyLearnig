@@ -1,0 +1,149 @@
+Problem Statement: "DevDiscuss" - A Community Forum API
+Case Objective:
+
+You are tasked with building the complete backend API for a community forum called “DevDiscuss.”
+The platform will allow users to register, create posts on various topics, comment on posts, and upvote content.
+The system must also support different user roles with distinct permissions and provide an analytics endpoint for forum statistics.
+
+Project Requirements:
+
+Project Initialization & Architecture
+
+Initialize a new Node.js project with essential packages: express, mongoose, bcrypt, jsonwebtoken.
+
+Structure your project with MVC (Model-View-Controller) architecture: controllers, models, routes, middleware, and utils directory.
+
+Use environment variables for sensitive data (JWT secret, database URL, etc.).
+
+Configure nodemon for auto-restarting during development.
+
+Logging Middleware
+
+Create a middleware function responsible for logging every request. It should log the HTTP method, request URL, and timestamp to the console.
+
+This middleware should be applied globally.
+
+Data Models & Relationships:
+
+Use Mongoose with proper schema definitions and create models for a many-to-many relationship.
+
+User Model
+
+username: String, required, unique, trimmed.
+
+email: String, required, unique, must be in a valid format, lowercase.
+
+password: String, required, hashed before saving.
+
+role: Enum [“user”, “admin”], default should be “user”.
+
+Relationships: A user can have many posts, comments, and upvotes.
+
+Post Model
+
+title: String, required, trimmed.
+
+content: String, required.
+
+author: ObjectId (ref: User), required.
+
+topics: Array of strings, indexed for searching.
+
+Relationships: A post can have many comments and upvotes.
+
+Comment Model
+
+content: String, required.
+
+author: ObjectId (ref: User), required.
+
+post: ObjectId (ref: Post), required.
+
+Upvote Model
+
+user: ObjectId (ref: User), required.
+
+post: ObjectId (ref: Post), required.
+
+Ensure a user can only upvote a post once (unique compound index on user and post fields).
+
+Authentication & Authorization:
+
+Authentication: Implement JWT-based authentication system.
+
+Authorization:
+
+Normal users can: Create posts, comment, upvote.
+
+Admins can: Delete any post, comment, or upvote.
+
+User Registration & Login:
+
+POST /auth/register: New user registration (with hashed password).
+
+POST /auth/login: Authenticate user and issue a JWT.
+
+Middleware:
+
+Create an authMiddleware to check JWT validity and attach user info to requests.
+
+Create an adminMiddleware to ensure only admins can access specific routes.
+
+API Endpoints:
+Post Routes
+
+POST /posts: [Protected] User can create a post. The request body should contain title, content, and topics array. If title doesn’t exist, it should be created.
+
+GET /posts: Public, fetch all posts with author and topics populated. Implement pagination (limit, skip).
+
+GET /posts/:id: Public, fetch a single post with author, comments, and upvotes populated.
+
+PUT /posts/:id: [Protected] Author can update their post.
+
+DELETE /posts/:id: [Protected] Author can delete their post. Admin can delete any post.
+
+Interaction Routes
+
+POST /posts/:id/comments: [Protected] User can add a comment to a specific post.
+
+DELETE /comments/:id: [Protected] Author of the comment or an admin can delete a comment.
+
+POST /posts/:id/upvote: [Protected] User can upvote a post. Ensure a user cannot upvote the same post twice.
+
+DELETE /upvotes/:id: [Protected] User can remove their upvote. Admin can remove any upvote.
+
+Advanced Aggregation Endpoint
+
+GET /analytics/popular-topics: Use Mongoose Aggregation Pipeline to return a JSON object with the following structure:
+
+[
+  { "topic": "JavaScript", "postCount": 25, "totalUpvotes": 300 },
+  { "topic": "Node.js", "postCount": 15, "totalUpvotes": 200 }
+]
+
+
+It should aggregate the number of posts in each topic and the total upvotes on those posts.
+
+Topics Evaluated:
+
+Backend Fundamentals: Node.js, MVC, Express setup.
+
+Database Modeling: Mongoose schema design, relationships.
+
+Authentication & Authorization: JWT implementation, role-based access.
+
+API Development: CRUD operations, protected routes, admin permissions.
+
+Middleware: Logging, authentication, authorization.
+
+Aggregation: Mongoose Aggregation Pipeline for analytics.
+
+Code Quality: Project structure, error handling, clean code, comments.
+
+Submission Guidelines:
+
+Submit plain GitHub repository link.
+
+Ensure proper README with setup instructions, specifying tech stack & evaluation checklist.
+
+Do not include node_modules.
