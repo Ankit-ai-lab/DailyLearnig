@@ -1,0 +1,30 @@
+{
+  "name": "auth-jwt-crud",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "dotenv -e .env node index.js",
+    "dev": "dotenv -e .env nodemon index.js --watch --trace-warnings"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^10.0.0",
+    "nodemon": "^3.1.10"
+  }
+}
