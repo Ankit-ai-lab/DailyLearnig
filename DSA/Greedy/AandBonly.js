@@ -26,3 +26,5 @@ function aAndB(str) {
 // Example usage:
 let input = '?ba?b?';
 console.log(aAndB(input)); // Expected output: 'ababab'
+
+
