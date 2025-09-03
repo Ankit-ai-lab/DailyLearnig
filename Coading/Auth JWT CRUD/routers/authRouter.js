@@ -1,6 +1,8 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const authrouter = express.Router();
 
-router.post('/signup',(res,req)=>{
-    res.json({massage:"signup Success"})
-})
+authrouter.post('/signup', (req, res) => {
+    res.json({ message: 'Signup success' });
+});
+
+module.exports = authrouter;
